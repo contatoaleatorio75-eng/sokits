@@ -50,7 +50,8 @@ export default function ImportacaoLote() {
             : updatedItems[i].url.includes("shopee") || updatedItems[i].url.includes("shope.ee")
             ? "Shopee" 
             : "Mercado Livre",
-          categoria: "Importados", // Categoria padrão
+          categoria: "Importados",
+          categoria_id: "importados", // Adicionado para corrigir erro de tipo
           nota_estrelas: 4.5,
           qtd_avaliacoes: Math.floor(Math.random() * 1000),
           destaque: false
