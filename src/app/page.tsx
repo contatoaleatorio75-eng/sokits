@@ -122,30 +122,37 @@ export default function HomePage() {
           {/* Hero — shown only when no filter active */}
           {!activeCat && !searchQuery && (
             <section className="hero" aria-label="Bem-vindo à Só Kits">
-              <div className="hero-badge">
-                <Zap size={12} /> Curadoria Especializada
-              </div>
-              <h1>
-                Bem-vindo à <span>Só Kits</span>:<br />
-                Sua vida facilitada em um clique.
-              </h1>
-              <p>
-                Cansado de perder horas procurando itens individuais? Na Só Kits, nós fazemos o trabalho
-                pesado por você. Reunimos os melhores conjuntos e{" "}
-                <em>bundles</em> do mercado em um só lugar.
-              </p>
-              <div className="hero-stats">
-                <div className="hero-stat">
-                  <strong>{kits.length}+</strong>
-                  <span>Kits curados</span>
+              <div className="hero-content">
+                <div className="hero-text">
+                  <div className="hero-badge">
+                    <Zap size={12} /> Curadoria Especializada
+                  </div>
+                  <h1>
+                    Bem-vindo à <span>Só Kits</span>:<br />
+                    Sua vida facilitada em um clique.
+                  </h1>
+                  <p>
+                    Cansado de perder horas procurando itens individuais? Na Só Kits, nós fazemos o trabalho
+                    pesado por você. Reunimos os melhores conjuntos e{" "}
+                    <em>bundles</em> do mercado em um só lugar.
+                  </p>
+                  <div className="hero-stats">
+                    <div className="hero-stat">
+                      <strong>{kits.length}+</strong>
+                      <span>Kits curados</span>
+                    </div>
+                    <div className="hero-stat">
+                      <strong>3</strong>
+                      <span>Lojas parceiras</span>
+                    </div>
+                    <div className="hero-stat">
+                      <strong>5</strong>
+                      <span>Categorias</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="hero-stat">
-                  <strong>3</strong>
-                  <span>Lojas parceiras</span>
-                </div>
-                <div className="hero-stat">
-                  <strong>5</strong>
-                  <span>Categorias</span>
+                <div className="hero-visual">
+                  <img src="/hero_bundles_visual_1777073627581.png" alt="Produtos Curados" className="floating-img" />
                 </div>
               </div>
             </section>
