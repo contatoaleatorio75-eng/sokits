@@ -42,7 +42,6 @@ export default function Footer() {
           <Link href="/termos">Termos de Uso</Link>
           <Link href="/sobre">Sobre a Só Kits</Link>
           <Link href="/contato">Contato</Link>
-          <Link href="/admin">Área Admin</Link>
         </div>
       </div>
 

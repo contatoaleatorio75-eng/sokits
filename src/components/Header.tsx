@@ -63,19 +63,7 @@ export default function Header({ onSearch, onCatFilter, activeSlug }: HeaderProp
           </button>
         </form>
 
-        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-          <Link
-            href="/admin"
-            style={{
-              display: "flex", alignItems: "center", gap: "0.4rem",
-              color: "rgba(255,255,255,0.75)", fontSize: "0.78rem", textDecoration: "none",
-              padding: "0.4rem 0.75rem", border: "1px solid rgba(255,255,255,0.2)",
-              borderRadius: "6px", transition: "all 0.2s", whiteSpace: "nowrap",
-            }}
-          >
-            <ShoppingBag size={14} /> Admin
-          </Link>
-        </div>
+        {/* Admin link removed for security */}
       </div>
 
       {/* Category nav */}
