@@ -203,7 +203,7 @@ export default function KitForm({ initialData, kitId }: KitFormProps) {
 
             <div className="form-group">
               <label className="form-label" htmlFor="kit-loja">Loja *</label>
-              <select id="kit-loja" className="form-input" value={form.loja} onChange={(e) => setField("loja", e.target.value)}>
+              <select id="kit-loja" className="form-input" value={form.loja} onChange={(e) => setField("loja", e.target.value as any)}>
                 <option>Amazon</option>
                 <option>Shopee</option>
                 <option>Mercado Livre</option>
