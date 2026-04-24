@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Só Kits — Loja Virtual de Afiliados
 
-## Getting Started
+> Portal de curadoria dos melhores kits e conjuntos da Amazon, Shopee e Mercado Livre.
 
-First, run the development server:
+## 🚀 Setup em 5 Minutos
+
+### 1. Configure o Firebase
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra `.env.local` e cole suas chaves do Firebase Console:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSy...
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=seu-projeto.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=seu-projeto
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=seu-projeto.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
+NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abc123
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> **Sem Firebase?** O site funciona em modo demonstração com os 15 produtos do seed.
 
-## Learn More
+### 2. Instale e rode
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Acesse: [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🛠️ Estrutura do Projeto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+sokits/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx              # Página principal (loja)
+│   │   ├── admin/                # Área administrativa
+│   │   │   ├── page.tsx          # Login
+│   │   │   ├── layout.tsx        # Layout admin + auth guard
+│   │   │   ├── dashboard/        # Dashboard com stats
+│   │   │   ├── kits/             # CRUD de kits
+│   │   │   └── categorias/       # CRUD de categorias
+│   │   └── api/scraper/          # API route do scraper
+│   ├── components/
+│   │   ├── Header.tsx            # Header responsivo
+│   │   ├── Footer.tsx            # Rodapé com aviso legal
+│   │   ├── Sidebar.tsx           # Menu lateral dinâmico
+│   │   ├── ProductCard.tsx       # Card de produto
+│   │   └── KitForm.tsx           # Formulário novo/editar kit
+│   └── lib/
+│       ├── firebase.ts           # Firebase plug & play
+│       ├── firestoreHelpers.ts   # CRUD helpers
+│       └── seedData.ts           # 15 produtos iniciais
+├── public/logo.png               # Logo da loja
+├── .env.example                  # Modelo de variáveis
+└── .github/workflows/deploy.yml  # Deploy automático
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📦 Deploy no GitHub Pages
+
+### Automático (via GitHub Actions)
+
+1. Faça push para o branch `main`
+2. Vá em **Settings → Secrets and variables → Actions**
+3. Adicione cada variável do `.env.example` como Secret
+4. O deploy ocorre automaticamente a cada push!
+
+### Manual
+
+```bash
+npm run deploy
+```
+
+---
+
+## ⚙️ Admin Panel
+
+Acesse `/admin` com seu e-mail e senha do Firebase Auth.
+
+**Funcionalidades:**
+- ✅ Dashboard com estatísticas
+- ✅ CRUD completo de kits (adicionar, editar, excluir)
+- ✅ CRUD de categorias
+- ✅ **Scraper automático** — Disponível em ambiente dinâmico (Vercel ou local). 
+  > *Nota: No GitHub Pages (estático), o scraper está desativado pois requer backend.*
+- ✅ Seed automático de 15 produtos no primeiro uso
+
+---
+
+## 🎨 Identidade Visual
+
+| Elemento | Valor |
+|---|---|
+| Azul Marinho | `#1B3A6B` |
+| Laranja | `#FF6B00` |
+| Background | `#F8F9FA` |
+| Fonte | Inter + Outfit (Google Fonts) |
+
+---
+
+## 📋 Regras Firestore
+
+Adicione no Firebase Console → Firestore → Rules:
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /kits/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /categorias/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /meta/{doc} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+
+---
+
+*Só Kits © 2025 — lojasokits.com.br*
