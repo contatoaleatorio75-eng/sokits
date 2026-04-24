@@ -46,7 +46,6 @@ export default function AdminKitsPage() {
     return { background: "#FFE600", color: "#333" };
   }
 
-  return (
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isDeletingBulk, setIsDeletingBulk] = useState(false);
 
@@ -71,7 +70,6 @@ export default function AdminKitsPage() {
     setIsDeletingBulk(true);
     try {
       const { deleteKit } = await import("@/lib/firestoreHelpers");
-      // Deletar sequencialmente para evitar sobrecarga
       for (const id of selectedIds) {
         await deleteKit(id);
       }

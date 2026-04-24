@@ -45,7 +45,7 @@ export default function ImportacaoLote() {
           imagem_url: data.imagem_url || "",
           especificacoes: data.especificacoes || [],
           link_afiliado: updatedItems[i].url,
-          loja: updatedItems[i].url.includes("amazon") || updatedItems[i].url.includes("amzn.to") 
+          loja: updatedItems[i].url.includes("amazon") || updatedItems[i].url.includes("amzn.to") || updatedItems[i].url.includes("amazon.com.br")
             ? "Amazon" 
             : updatedItems[i].url.includes("shopee") || updatedItems[i].url.includes("shope.ee")
             ? "Shopee" 
