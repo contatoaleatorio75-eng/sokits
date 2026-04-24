@@ -47,9 +47,60 @@ export default function AdminKitsPage() {
   }
 
   return (
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [isDeletingBulk, setIsDeletingBulk] = useState(false);
+
+  function toggleSelect(id: string) {
+    setSelectedIds(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  }
+
+  function toggleSelectAll() {
+    if (selectedIds.length === kits.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(kits.map(k => k.id || ""));
+    }
+  }
+
+  async function handleBulkDelete() {
+    if (!selectedIds.length) return;
+    if (!confirm(`Deseja excluir os ${selectedIds.length} kits selecionados?`)) return;
+    
+    setIsDeletingBulk(true);
+    try {
+      const { deleteKit } = await import("@/lib/firestoreHelpers");
+      // Deletar sequencialmente para evitar sobrecarga
+      for (const id of selectedIds) {
+        await deleteKit(id);
+      }
+      showToast(`${selectedIds.length} kits excluídos com sucesso.`);
+      setSelectedIds([]);
+      loadKits();
+    } catch {
+      showToast("Erro ao excluir alguns itens.", "error");
+    } finally {
+      setIsDeletingBulk(false);
+    }
+  }
+
+  return (
     <>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem" }}>
-        <h1 className="admin-page-title" style={{ margin: 0 }}>Gerenciar Kits</h1>
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <h1 className="admin-page-title" style={{ margin: 0 }}>Gerenciar Kits</h1>
+          {selectedIds.length > 0 && (
+            <button 
+              className="btn-danger" 
+              onClick={handleBulkDelete} 
+              disabled={isDeletingBulk}
+              style={{ padding: "0.4rem 0.8rem", fontSize: "0.8rem" }}
+            >
+              <Trash2 size={14} /> {isDeletingBulk ? "Excluindo..." : `Excluir (${selectedIds.length})`}
+            </button>
+          )}
+        </div>
         <Link href="/admin/kits/novo" className="btn-primary">
           <Plus size={16} /> Novo Kit
         </Link>
@@ -69,6 +120,14 @@ export default function AdminKitsPage() {
           <table className="data-table">
             <thead>
               <tr>
+                <th style={{ width: "40px" }}>
+                  <input 
+                    type="checkbox" 
+                    checked={selectedIds.length === kits.length && kits.length > 0} 
+                    onChange={toggleSelectAll}
+                    style={{ width: "16px", height: "16px", cursor: "pointer" }}
+                  />
+                </th>
                 <th>Título</th>
                 <th>Categoria</th>
                 <th>Loja</th>
@@ -79,7 +138,15 @@ export default function AdminKitsPage() {
             </thead>
             <tbody>
               {kits.map((k) => (
-                <tr key={k.id}>
+                <tr key={k.id} style={{ background: selectedIds.includes(k.id || "") ? "rgba(255, 153, 0, 0.05)" : "transparent" }}>
+                  <td>
+                    <input 
+                      type="checkbox" 
+                      checked={selectedIds.includes(k.id || "")} 
+                      onChange={() => k.id && toggleSelect(k.id)}
+                      style={{ width: "16px", height: "16px", cursor: "pointer" }}
+                    />
+                  </td>
                   <td style={{ fontWeight: 500, maxWidth: "280px" }}>
                     <span style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                       {k.titulo}
