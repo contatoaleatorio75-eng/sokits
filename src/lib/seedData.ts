@@ -3,6 +3,7 @@ export interface Categoria {
   nome: string;
   emoji: string;
   slug: string;
+  ordem?: number;
 }
 
 export interface Kit {
@@ -21,11 +22,11 @@ export interface Kit {
 }
 
 export const categoriasSeed: Categoria[] = [
-  { id: "1", nome: "Oficina em Casa", emoji: "🛠️", slug: "oficina-em-casa" },
-  { id: "2", nome: "Praticidade Doméstica", emoji: "🏠", slug: "praticidade-domestica" },
-  { id: "3", nome: "Cuidado Automotivo", emoji: "🚗", slug: "cuidado-automotivo" },
-  { id: "4", nome: "Tecnologia & Office", emoji: "💻", slug: "tecnologia-office" },
-  { id: "5", nome: "Casa Inteligente", emoji: "💡", slug: "casa-inteligente" },
+  { id: "1", nome: "Oficina em Casa", emoji: "🛠️", slug: "oficina-em-casa", ordem: 1 },
+  { id: "2", nome: "Praticidade Doméstica", emoji: "🏠", slug: "praticidade-domestica", ordem: 2 },
+  { id: "3", nome: "Cuidado Automotivo", emoji: "🚗", slug: "cuidado-automotivo", ordem: 3 },
+  { id: "4", nome: "Tecnologia & Office", emoji: "💻", slug: "tecnologia-office", ordem: 4 },
+  { id: "5", nome: "Casa Inteligente", emoji: "💡", slug: "casa-inteligente", ordem: 5 },
 ];
 
 export const kitsSeed: Kit[] = [
