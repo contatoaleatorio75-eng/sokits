@@ -29,7 +29,7 @@ export async function GET(request: Request) {
     const image = imageMatch ? imageMatch[1] : "";
 
     // Tentativa de pegar preço via JSON-LD (Dados estruturados - mais confiável)
-    const jsonLdMatch = html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s);
+    const jsonLdMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
     let price = "";
     if (jsonLdMatch) {
       try {
