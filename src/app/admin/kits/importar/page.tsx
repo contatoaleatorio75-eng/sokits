@@ -45,7 +45,11 @@ export default function ImportacaoLote() {
           imagem_url: data.imagem_url || "",
           especificacoes: data.especificacoes || [],
           link_afiliado: updatedItems[i].url,
-          loja: updatedItems[i].url.includes("amazon") ? "Amazon" : updatedItems[i].url.includes("shopee") ? "Shopee" : "Mercado Livre",
+          loja: updatedItems[i].url.includes("amazon") || updatedItems[i].url.includes("amzn.to") 
+            ? "Amazon" 
+            : updatedItems[i].url.includes("shopee") || updatedItems[i].url.includes("shope.ee")
+            ? "Shopee" 
+            : "Mercado Livre",
           categoria: "Importados", // Categoria padrão
           nota_estrelas: 4.5,
           qtd_avaliacoes: Math.floor(Math.random() * 1000),

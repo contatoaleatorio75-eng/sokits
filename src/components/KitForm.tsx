@@ -92,7 +92,7 @@ export default function KitForm({ initialData, kitId }: KitFormProps) {
       if (data.especificacoes?.length) setField("especificacoes", data.especificacoes.slice(0, 5));
       // Detect loja from URL
       if (scraperUrl.includes("amazon") || scraperUrl.includes("amzn")) setField("loja", "Amazon");
-      else if (scraperUrl.includes("shopee")) setField("loja", "Shopee");
+      else if (scraperUrl.includes("shopee") || scraperUrl.includes("shope.ee")) setField("loja", "Shopee");
       else if (scraperUrl.includes("mercadolivre") || scraperUrl.includes("meli")) setField("loja", "Mercado Livre");
       showToast("Dados extraídos com sucesso!");
     } catch (err: any) {
