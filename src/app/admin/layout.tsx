@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { LayoutDashboard, Package, Tag, LogOut, ChevronRight } from "lucide-react";
+import { LayoutDashboard, Package, Tag, LogOut, ChevronRight, Download } from "lucide-react";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -59,6 +59,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const navLinks = [
     { href: "/admin/dashboard", icon: <LayoutDashboard size={16} />, label: "Dashboard" },
     { href: "/admin/kits", icon: <Package size={16} />, label: "Kits" },
+    { href: "/admin/kits/importar", icon: <Download size={16} />, label: "Importação em Lote" },
     { href: "/admin/categorias", icon: <Tag size={16} />, label: "Categorias" },
   ];
 

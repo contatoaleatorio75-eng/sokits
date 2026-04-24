@@ -28,14 +28,37 @@ export async function GET(request: Request) {
     const imageMatch = html.match(/<meta property="og:image" content="(.*?)"/);
     const image = imageMatch ? imageMatch[1] : "";
 
-    // Tentativa de pegar preço (Padrão genérico de microdados)
-    const priceMatch = html.match(/price" content="(.*?)"/) || html.match(/itemprop="price">(.*?)<\/span>/);
-    let price = priceMatch ? priceMatch[1].trim() : "";
-    if (price && !price.includes("R$")) price = `R$ ${price}`;
+    // Tentativa de pegar preço via JSON-LD (Dados estruturados - mais confiável)
+    const jsonLdMatch = html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s);
+    let price = "";
+    if (jsonLdMatch) {
+      try {
+        const json = JSON.parse(jsonLdMatch[1].trim());
+        const offer = json.offers || (json.mainEntity && json.mainEntity.offers);
+        if (offer) {
+          price = Array.isArray(offer) ? offer[0].price : offer.price;
+        }
+      } catch (e) {}
+    }
+
+    // Fallbacks de preço via meta tags ou regex de moeda
+    if (!price) {
+      const priceMeta = html.match(/<meta property="product:price:amount" content="(.*?)"/) || 
+                        html.match(/itemprop="price" content="(.*?)"/);
+      price = priceMeta ? priceMeta[1] : "";
+    }
+
+    // Limpeza e formatação do preço
+    if (price) {
+      price = price.toString().replace(".", ",");
+      if (!price.includes("R$")) price = `R$ ${price}`;
+    } else {
+      price = "R$ —"; // Deixar vazio ou com traço para o usuário ver que precisa preencher
+    }
 
     return NextResponse.json({
       titulo: title.substring(0, 100),
-      preco: price || "R$ 99,90",
+      preco: price,
       imagem_url: image,
       especificacoes: ["Produto de alta qualidade", "Melhor custo-benefício", "Entrega rápida"],
     });
