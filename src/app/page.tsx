@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { Zap, Package, Star } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Sidebar from "@/components/Sidebar";
+
 import ProductCard from "@/components/ProductCard";
 import { kitsSeed, categoriasSeed, type Kit, type Categoria } from "@/lib/seedData";
 
@@ -109,13 +109,7 @@ export default function HomePage() {
       />
 
       <div className="page-wrapper">
-        {/* Sidebar */}
-        <Sidebar
-          categorias={categorias}
-          activeSlug={activeCat}
-          contagens={contagens}
-          onSelect={handleCatFilter}
-        />
+
 
         {/* Main content */}
         <main>

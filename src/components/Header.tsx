@@ -43,10 +43,10 @@ export default function Header({ onSearch, onCatFilter, activeSlug }: HeaderProp
           <Image
             src="/logo.png"
             alt="Só Kits"
-            width={140}
-            height={44}
+            width={180}
+            height={56}
             priority
-            style={{ objectFit: "contain", height: "44px", width: "auto" }}
+            style={{ objectFit: "contain", height: "56px", width: "auto" }}
           />
         </Link>
 
