@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, Menu, X, ShoppingBag } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
 
 const categorias = [
   { emoji: "🛠️", nome: "Oficina em Casa", slug: "oficina-em-casa" },
@@ -29,7 +29,6 @@ export default function Header({ onSearch, onCatFilter, activeSlug }: HeaderProp
 
   return (
     <header className="site-header">
-      {/* Top bar */}
       <div className="header-top">
         <button
           className="mobile-menu-btn"
@@ -50,25 +49,8 @@ export default function Header({ onSearch, onCatFilter, activeSlug }: HeaderProp
           />
         </Link>
 
-        <form className="header-search" onSubmit={handleSearch} role="search">
-          <input
-            type="text"
-            placeholder="Buscar kits, conjuntos, ferramentas..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            aria-label="Buscar produtos"
-          />
-          <button type="submit" aria-label="Buscar">
-            <Search size={18} />
-          </button>
-        </form>
-
-        {/* Admin link removed for security */}
-      </div>
-
-      {/* Category nav */}
-      <nav className="header-nav">
-        <div className={`header-nav-inner ${mobileNavOpen ? "block" : ""}`}>
+        {/* Inline Category Nav */}
+        <nav className={`header-nav-inline ${mobileNavOpen ? "open" : ""}`}>
           <button
             className={`nav-link ${!activeSlug ? "active" : ""}`}
             onClick={() => { onCatFilter?.(null); setMobileNavOpen(false); }}
@@ -86,8 +68,21 @@ export default function Header({ onSearch, onCatFilter, activeSlug }: HeaderProp
               {c.emoji} {c.nome}
             </button>
           ))}
-        </div>
-      </nav>
+        </nav>
+
+        <form className="header-search" onSubmit={handleSearch} role="search">
+          <input
+            type="text"
+            placeholder="Buscar kits, conjuntos..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            aria-label="Buscar produtos"
+          />
+          <button type="submit" aria-label="Buscar">
+            <Search size={18} />
+          </button>
+        </form>
+      </div>
     </header>
   );
 }

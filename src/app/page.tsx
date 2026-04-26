@@ -130,21 +130,23 @@ export default function HomePage() {
                     pesado por você. Reunimos os melhores conjuntos e{" "}
                     <em>bundles</em> do mercado em um só lugar.
                   </p>
-                  <div className="hero-stats">
-                    <div className="hero-stat">
-                      <strong>{kits.length}+</strong>
-                      <span>Kits curados</span>
-                    </div>
-                    <div className="hero-stat">
-                      <strong>3</strong>
-                      <span>Lojas parceiras</span>
-                    </div>
-                    <div className="hero-stat">
-                      <strong>5</strong>
-                      <span>Categorias</span>
-                    </div>
+                </div>
+
+                <div className="hero-stats-box">
+                  <div className="hero-stat">
+                    <strong>{kits.length}+</strong>
+                    <span>Kits curados</span>
+                  </div>
+                  <div className="hero-stat">
+                    <strong>3</strong>
+                    <span>Lojas parceiras</span>
+                  </div>
+                  <div className="hero-stat">
+                    <strong>5</strong>
+                    <span>Categorias</span>
                   </div>
                 </div>
+
                 <div className="hero-visual">
                   <img src="/hero_bundles_visual_1777073627581.png" alt="Produtos Curados" className="floating-img" />
                 </div>
