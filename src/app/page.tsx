@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { Zap, Package, Star } from "lucide-react";
+import { Zap, Package, Star, Search } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -130,6 +130,27 @@ export default function HomePage() {
                     pesado por você. Reunimos os melhores conjuntos e{" "}
                     <em>bundles</em> do mercado em um só lugar.
                   </p>
+                  
+                  {/* Search Bar inside Hero */}
+                  <form 
+                    className="hero-search" 
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const formData = new FormData(e.currentTarget);
+                      const q = formData.get("q") as string;
+                      handleSearch(q);
+                    }}
+                  >
+                    <input
+                      name="q"
+                      type="text"
+                      placeholder="O que você está procurando hoje?"
+                      aria-label="Buscar kits"
+                    />
+                    <button type="submit">
+                      <Search size={18} /> Buscar
+                    </button>
+                  </form>
                 </div>
 
                 <div className="hero-stats-box">

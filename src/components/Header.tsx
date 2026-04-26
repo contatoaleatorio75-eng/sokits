@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const categorias = [
   { emoji: "🛠️", nome: "Oficina em Casa", slug: "oficina-em-casa" },
@@ -18,14 +18,8 @@ interface HeaderProps {
   activeSlug?: string | null;
 }
 
-export default function Header({ onSearch, onCatFilter, activeSlug }: HeaderProps) {
-  const [query, setQuery] = useState("");
+export default function Header({ onCatFilter, activeSlug }: HeaderProps) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-
-  function handleSearch(e: React.FormEvent) {
-    e.preventDefault();
-    onSearch?.(query);
-  }
 
   return (
     <header className="site-header">
@@ -70,18 +64,7 @@ export default function Header({ onSearch, onCatFilter, activeSlug }: HeaderProp
           ))}
         </nav>
 
-        <form className="header-search" onSubmit={handleSearch} role="search">
-          <input
-            type="text"
-            placeholder="Buscar kits, conjuntos..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            aria-label="Buscar produtos"
-          />
-          <button type="submit" aria-label="Buscar">
-            <Search size={18} />
-          </button>
-        </form>
+        {/* Search removed from header to give more space to categories */}
       </div>
     </header>
   );
