@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { Plus, Pencil, Trash2, ExternalLink, Search, ChevronUp, ChevronDown } from "lucide-react";
