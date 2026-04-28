@@ -99,6 +99,18 @@ export default function AdminKitsPage() {
     }
   }
 
+  async function handleUpdatePrice(id: string, newPrice: string, oldPrice: string) {
+    if (newPrice === oldPrice) return;
+    try {
+      const { updateKit } = await import("@/lib/firestoreHelpers");
+      await updateKit(id, { preco: newPrice });
+      setKits(prev => prev.map(k => k.id === id ? { ...k, preco: newPrice } : k));
+      showToast("Preço atualizado com sucesso.");
+    } catch {
+      showToast("Erro ao atualizar preço.", "error");
+    }
+  }
+
   const filteredAndSortedKits = useMemo(() => {
     let result = [...kits];
 
@@ -249,8 +261,34 @@ export default function AdminKitsPage() {
                       {k.loja}
                     </span>
                   </td>
-                  <td style={{ color: "var(--orange)", fontWeight: 700 }}>
-                    * {k.preco}
+                  <td>
+                    <div style={{ display: "flex", alignItems: "center", gap: "2px", color: "var(--orange)", fontWeight: 700 }}>
+                      <span style={{ fontSize: "0.8rem", opacity: 0.8 }}>*</span>
+                      <input 
+                        type="text"
+                        defaultValue={k.preco}
+                        onBlur={(e) => k.id && handleUpdatePrice(k.id, e.target.value, k.preco)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                        }}
+                        style={{ 
+                          background: "transparent", 
+                          border: "1px solid transparent", 
+                          color: "inherit", 
+                          fontWeight: "inherit", 
+                          padding: "2px 4px", 
+                          width: "95px",
+                          borderRadius: "4px",
+                          outline: "none",
+                          fontSize: "0.85rem"
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.background = "#fff";
+                          e.target.style.border = "1px solid var(--orange)";
+                        }}
+                        title="Clique para editar o preço"
+                      />
+                    </div>
                   </td>
                   <td>⭐ {k.nota_estrelas}</td>
                   <td style={{ textAlign: "center" }}>
