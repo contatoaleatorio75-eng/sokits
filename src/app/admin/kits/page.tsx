@@ -235,7 +235,9 @@ export default function AdminKitsPage() {
                       {k.loja}
                     </span>
                   </td>
-                  <td style={{ color: "var(--orange)", fontWeight: 700 }}>{k.preco}</td>
+                  <td style={{ color: "var(--orange)", fontWeight: 700 }}>
+                    * {k.preco}
+                  </td>
                   <td>⭐ {k.nota_estrelas}</td>
                   <td>
                     <div className="gap-actions">
@@ -256,6 +258,9 @@ export default function AdminKitsPage() {
           </table>
         )}
       </div>
+      <p style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "0.5rem", padding: "0 0.5rem" }}>
+        * O preço pode sofrer alterações dependendo da data e hora da pesquisa.
+      </p>
 
       {toast && <div className={`toast ${toast.type}`}>{toast.msg}</div>}
     </>

@@ -81,7 +81,10 @@ export default function ProductCard({ kit }: ProductCardProps) {
         {/* Price */}
         <div>
           <div className="card-price-label">a partir de</div>
-          <div className="card-price">{kit.preco}</div>
+          <div className="card-price">* {kit.preco}</div>
+          <p style={{ fontSize: "0.62rem", color: "var(--text-muted)", marginTop: "2px", lineHeight: 1.2 }}>
+            * O preço pode sofrer alterações dependendo da data e hora da pesquisa.
+          </p>
         </div>
 
         {/* CTA */}
