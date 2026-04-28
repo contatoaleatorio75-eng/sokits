@@ -88,6 +88,17 @@ export default function AdminKitsPage() {
     }
   }
 
+  async function handleToggleDestaque(id: string, newVal: boolean) {
+    try {
+      const { updateKit } = await import("@/lib/firestoreHelpers");
+      await updateKit(id, { destaque: newVal });
+      setKits(prev => prev.map(k => k.id === id ? { ...k, destaque: newVal } : k));
+      showToast(newVal ? "Kit adicionado aos destaques." : "Kit removido dos destaques.");
+    } catch {
+      showToast("Erro ao atualizar destaque.", "error");
+    }
+  }
+
   const filteredAndSortedKits = useMemo(() => {
     let result = [...kits];
 
@@ -210,6 +221,9 @@ export default function AdminKitsPage() {
                 <th onClick={() => handleSort("nota_estrelas")} className={`sortable-header ${sortField === "nota_estrelas" ? "active" : ""}`}>
                   Nota <SortIcon field="nota_estrelas" />
                 </th>
+                <th onClick={() => handleSort("destaque")} className={`sortable-header ${sortField === "destaque" ? "active" : ""}`} style={{ textAlign: "center" }}>
+                  Home <SortIcon field="destaque" />
+                </th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -239,6 +253,15 @@ export default function AdminKitsPage() {
                     * {k.preco}
                   </td>
                   <td>⭐ {k.nota_estrelas}</td>
+                  <td style={{ textAlign: "center" }}>
+                    <input 
+                      type="checkbox" 
+                      checked={!!k.destaque} 
+                      onChange={() => k.id && handleToggleDestaque(k.id, !k.destaque)}
+                      title="Mostrar na Home"
+                      style={{ width: "18px", height: "18px", cursor: "pointer", accentColor: "var(--orange)" }}
+                    />
+                  </td>
                   <td>
                     <div className="gap-actions">
                       <a href={k.link_afiliado} target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding: "0.3rem 0.5rem" }}>

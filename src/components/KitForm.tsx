@@ -246,18 +246,6 @@ export default function KitForm({ initialData, kitId }: KitFormProps) {
               )}
             </div>
 
-            <div className="form-group" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <input
-                id="kit-destaque"
-                type="checkbox"
-                checked={!!form.destaque}
-                onChange={(e) => setField("destaque", e.target.checked)}
-                style={{ width: "16px", height: "16px", accentColor: "var(--orange)" }}
-              />
-              <label className="form-label" htmlFor="kit-destaque" style={{ margin: 0, cursor: "pointer" }}>
-                ⭐ Marcar como Destaque na Home
-              </label>
-            </div>
           </div>
         </div>
 
