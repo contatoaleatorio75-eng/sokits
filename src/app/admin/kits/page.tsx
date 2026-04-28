@@ -1,13 +1,17 @@
-"use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import { Plus, Pencil, Trash2, ExternalLink } from "lucide-react";
+import { Plus, Pencil, Trash2, ExternalLink, Search, ChevronUp, ChevronDown } from "lucide-react";
 import type { Kit } from "@/lib/seedData";
 
 export default function AdminKitsPage() {
   const [kits, setKits] = useState<Kit[]>([]);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<{ msg: string; type: "success" | "error" } | null>(null);
+  
+  // Sorting & Filtering state
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortField, setSortField] = useState<keyof Kit | "">("");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   function showToast(msg: string, type: "success" | "error" = "success") {
     setToast({ msg, type });
@@ -83,11 +87,68 @@ export default function AdminKitsPage() {
     }
   }
 
+  const filteredAndSortedKits = useMemo(() => {
+    let result = [...kits];
+
+    // Filter
+    if (searchTerm) {
+      const s = searchTerm.toLowerCase();
+      result = result.filter(k => 
+        k.titulo.toLowerCase().includes(s) || 
+        k.categoria.toLowerCase().includes(s) || 
+        k.loja.toLowerCase().includes(s)
+      );
+    }
+
+    // Sort
+    if (sortField) {
+      result.sort((a, b) => {
+        let valA: any = a[sortField] || "";
+        let valB: any = b[sortField] || "";
+
+        if (sortField === "preco") {
+          const parseP = (val: string) => parseFloat(val.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+          valA = parseP(String(valA));
+          valB = parseP(String(valB));
+        }
+
+        if (valA < valB) return sortOrder === "asc" ? -1 : 1;
+        if (valA > valB) return sortOrder === "asc" ? 1 : -1;
+        return 0;
+      });
+    }
+
+    return result;
+  }, [kits, searchTerm, sortField, sortOrder]);
+
+  function handleSort(field: keyof Kit) {
+    if (sortField === field) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortField(field);
+      setSortOrder("asc");
+    }
+  }
+
+  function SortIcon({ field }: { field: keyof Kit }) {
+    if (sortField !== field) return <ChevronUp size={14} className="sort-icon" />;
+    return sortOrder === "asc" ? <ChevronUp size={14} className="sort-icon" /> : <ChevronDown size={14} className="sort-icon" />;
+  }
+
   return (
     <>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <h1 className="admin-page-title" style={{ margin: 0 }}>Gerenciar Kits</h1>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
+        <div className="search-container-admin" style={{ marginBottom: 0 }}>
+          <Search size={16} className="search-icon" />
+          <input 
+            type="text" 
+            className="search-input-admin" 
+            placeholder="Filtrar por título, categoria ou loja..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div style={{ display: "flex", gap: "1rem" }}>
           {selectedIds.length > 0 && (
             <button 
               className="btn-danger" 
@@ -98,10 +159,10 @@ export default function AdminKitsPage() {
               <Trash2 size={14} /> {isDeletingBulk ? "Excluindo..." : `Excluir (${selectedIds.length})`}
             </button>
           )}
+          <Link href="/admin/kits/novo" className="btn-primary">
+            <Plus size={16} /> Novo Kit
+          </Link>
         </div>
-        <Link href="/admin/kits/novo" className="btn-primary">
-          <Plus size={16} /> Novo Kit
-        </Link>
       </div>
 
       <div className="admin-card" style={{ padding: "0", overflow: "hidden" }}>
@@ -113,6 +174,13 @@ export default function AdminKitsPage() {
             <Link href="/admin/kits/novo" className="btn-primary" style={{ marginTop: "1rem" }}>
               <Plus size={16} /> Cadastrar Primeiro Kit
             </Link>
+          </div>
+        ) : filteredAndSortedKits.length === 0 ? (
+          <div style={{ padding: "3rem", textAlign: "center" }}>
+            <p style={{ color: "var(--text-muted)" }}>Nenhum kit encontrado para "{searchTerm}".</p>
+            <button className="btn-secondary" onClick={() => setSearchTerm("")} style={{ marginTop: "1rem" }}>
+              Limpar Busca
+            </button>
           </div>
         ) : (
           <table className="data-table">
@@ -126,16 +194,26 @@ export default function AdminKitsPage() {
                     style={{ width: "16px", height: "16px", cursor: "pointer" }}
                   />
                 </th>
-                <th>Título</th>
-                <th>Categoria</th>
-                <th>Loja</th>
-                <th>Preço</th>
-                <th>Nota</th>
+                <th onClick={() => handleSort("titulo")} className={`sortable-header ${sortField === "titulo" ? "active" : ""}`}>
+                  Título <SortIcon field="titulo" />
+                </th>
+                <th onClick={() => handleSort("categoria")} className={`sortable-header ${sortField === "categoria" ? "active" : ""}`}>
+                  Categoria <SortIcon field="categoria" />
+                </th>
+                <th onClick={() => handleSort("loja")} className={`sortable-header ${sortField === "loja" ? "active" : ""}`}>
+                  Loja <SortIcon field="loja" />
+                </th>
+                <th onClick={() => handleSort("preco")} className={`sortable-header ${sortField === "preco" ? "active" : ""}`}>
+                  Preço <SortIcon field="preco" />
+                </th>
+                <th onClick={() => handleSort("nota_estrelas")} className={`sortable-header ${sortField === "nota_estrelas" ? "active" : ""}`}>
+                  Nota <SortIcon field="nota_estrelas" />
+                </th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {kits.map((k) => (
+              {filteredAndSortedKits.map((k) => (
                 <tr key={k.id} style={{ background: selectedIds.includes(k.id || "") ? "rgba(255, 153, 0, 0.05)" : "transparent" }}>
                   <td>
                     <input 

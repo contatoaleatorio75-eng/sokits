@@ -90,6 +90,10 @@ export default function KitForm({ initialData, kitId }: KitFormProps) {
       if (data.preco) setField("preco", data.preco);
       if (data.imagem_url) setField("imagem_url", data.imagem_url);
       if (data.especificacoes?.length) setField("especificacoes", data.especificacoes.slice(0, 5));
+      
+      // Preencher link de afiliado automaticamente com a URL de busca
+      setField("link_afiliado", scraperUrl);
+
       // Detect loja from URL
       if (scraperUrl.includes("amazon") || scraperUrl.includes("amzn")) setField("loja", "Amazon");
       else if (scraperUrl.includes("shopee") || scraperUrl.includes("shope.ee")) setField("loja", "Shopee");
@@ -211,8 +215,11 @@ export default function KitForm({ initialData, kitId }: KitFormProps) {
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="kit-preco">Preço</label>
+              <label className="form-label" htmlFor="kit-preco">* R$ Preço</label>
               <input id="kit-preco" className="form-input" value={form.preco} onChange={(e) => setField("preco", e.target.value)} placeholder="R$ 99,90" />
+              <p className="form-hint" style={{ fontSize: "0.7rem", marginTop: "0.3rem" }}>
+                * O preço pode sofrer alterações dependendo da data e hora da pesquisa.
+              </p>
             </div>
 
             <div className="form-group">
