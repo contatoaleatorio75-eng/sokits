@@ -117,10 +117,9 @@ export default function HomePage() {
           {!activeCat && !searchQuery && (
             <section className="hero" aria-label="Bem-vindo à Só Kits">
               <div className="hero-content">
+
+                {/* LEFT — title, description, search */}
                 <div className="hero-text">
-                  <div className="hero-badge">
-                    <Zap size={12} /> Curadoria Especializada
-                  </div>
                   <h1>
                     Bem-vindo à <span>Só Kits</span>:<br />
                     Sua vida facilitada em um clique.
@@ -151,45 +150,49 @@ export default function HomePage() {
                       <Search size={18} /> Buscar
                     </button>
                   </form>
+                </div>
 
-                  {/* Radar de Achados — compact pill shortcut */}
+                {/* CENTER — badge, stats, radar button */}
+                <div className="hero-center-col">
+                  <div className="hero-badge">
+                    <Zap size={12} /> Curadoria Especializada
+                  </div>
+
+                  <div className="hero-stats-box">
+                    <div className="hero-stat">
+                      <strong>{kits.length}+</strong>
+                      <span>Kits curados</span>
+                    </div>
+                    <div className="hero-stat">
+                      <strong>3</strong>
+                      <span>Lojas parceiras</span>
+                    </div>
+                    <div className="hero-stat">
+                      <strong>{categorias.length}</strong>
+                      <span>Categorias</span>
+                    </div>
+                  </div>
+
+                  {/* Radar de Achados button */}
                   <button
-                    className="radar-pill"
+                    className="radar-btn"
                     onClick={() => handleCatFilter("radar-de-achados")}
                     aria-label="Ver Radar de Achados"
                   >
-                    <span className="radar-pill-rings" aria-hidden="true">
-                      <span className="rpr1" /><span className="rpr2" />
-                      <span className="radar-pill-icon">📡</span>
+                    <span className="radar-btn-rings" aria-hidden="true">
+                      <span className="rbr1" /><span className="rbr2" />
+                      <span className="radar-btn-icon">📡</span>
                     </span>
-                    <span className="radar-pill-label">Radar de Achados</span>
-                    {contagens["radar-de-achados"] > 0 && (
-                      <span className="radar-pill-count">{contagens["radar-de-achados"]} achados</span>
-                    )}
-                    <span className="radar-pill-arrow">→</span>
+                    <span className="radar-btn-label">Radar de Achados</span>
+                    <span className="radar-btn-arrow">→</span>
                   </button>
                 </div>
 
-                <div className="hero-stats-box">
-                  <div className="hero-stat">
-                    <strong>{kits.length}+</strong>
-                    <span>Kits curados</span>
-                  </div>
-                  <div className="hero-stat">
-                    <strong>3</strong>
-                    <span>Lojas parceiras</span>
-                  </div>
-                  <div className="hero-stat">
-                    <strong>{categorias.length}</strong>
-                    <span>Categorias</span>
-                  </div>
-                </div>
-
+                {/* RIGHT — visual image */}
                 <div className="hero-visual">
                   <img src="/hero_bundles_visual_1777073627581.png" alt="Produtos Curados" className="floating-img" />
                 </div>
               </div>
-
             </section>
           )}
 

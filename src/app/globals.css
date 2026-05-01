@@ -59,18 +59,19 @@ h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; line-height: 1.2; }
 @media (max-width: 900px) { .sidebar { display: none; } .sidebar.open { display: block; } }
 
 /* HERO */
-.hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, #2a5fa8 100%); border-radius: 16px; padding: 1.5rem 3rem; color: white; position: relative; overflow: hidden; margin-bottom: 1.5rem; }
-.hero-content { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 2rem; position: relative; z-index: 2; max-width: 1500px; margin: 0 auto; }
-.hero-text { flex: 1; text-align: left; max-width: 500px; }
-.hero-stats-box { flex: 0 0 auto; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: row; gap: 1.5rem; }
+.hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, #2a5fa8 100%); border-radius: 16px; padding: 1rem 2rem; color: white; position: relative; overflow: hidden; margin-bottom: 1.5rem; }
+.hero-content { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 1.5rem; position: relative; z-index: 2; max-width: 1500px; margin: 0 auto; }
+.hero-text { flex: 1; text-align: left; max-width: 420px; }
+.hero-center-col { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0.85rem; }
+.hero-stats-box { flex: 0 0 auto; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem 1.25rem; display: flex; flex-direction: row; gap: 1.25rem; }
 .hero-visual { flex: 0 0 auto; display: flex; justify-content: center; align-items: center; }
 .floating-img { width: 100%; max-width: 280px; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: float 6s ease-in-out infinite; }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 280px; height: 280px; background: rgba(255,107,0,0.15); border-radius: 50%; filter: blur(40px); }
 .hero-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(255,107,0,0.2); border: 1px solid rgba(255,107,0,0.4); border-radius: 20px; padding: 0.25rem 0.8rem; font-size: 0.78rem; font-weight: 600; color: #ffb380; margin: 0 0 1rem; }
-.hero h1 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin: 0 0 1rem; line-height: 1.15; }
+.hero h1 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 800; margin: 0 0 0.6rem; line-height: 1.15; }
 .hero h1 span { color: var(--orange); }
-.hero p { font-size: 0.92rem; color: rgba(255,255,255,0.85); max-width: 100%; line-height: 1.5; margin: 0 0 1.5rem; }
+.hero p { font-size: 0.85rem; color: rgba(255,255,255,0.85); max-width: 100%; line-height: 1.5; margin: 0 0 1rem; }
 
 /* HERO SEARCH */
 .hero-search { display: flex; align-items: center; background: white; border-radius: 12px; padding: 0.35rem; width: 100%; max-width: 480px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border: 2px solid transparent; transition: border-color 0.2s; }
@@ -84,8 +85,9 @@ h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; line-height: 1.2; }
 .hero-stat span { font-size: 0.72rem; color: rgba(255,255,255,0.7); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
 
 @media (max-width: 1200px) {
-  .hero-content { flex-direction: column; text-align: center; gap: 2rem; }
+  .hero-content { flex-direction: column; text-align: center; gap: 1.25rem; }
   .hero-text { max-width: 600px; text-align: center; }
+  .hero-center-col { width: 100%; }
   .hero-stats-box { width: 100%; justify-content: center; }
   .hero-visual { width: 100%; }
 }
@@ -255,64 +257,59 @@ h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; line-height: 1.2; }
   box-shadow: 0 0 0 3px rgba(255,107,0,0.1);
 }
 
-/* ── RADAR DE ACHADOS PILL ───────────────────────────────────────────────────── */
-.radar-pill {
-  display: inline-flex;
+/* ── RADAR DE ACHADOS BUTTON (inside hero center col) ───────────────────── */
+.radar-btn {
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.8rem;
-  padding: 0.45rem 0.9rem 0.45rem 0.5rem;
-  background: rgba(255,107,0,0.15);
-  border: 1px solid rgba(255,107,0,0.45);
-  border-radius: 24px;
-  color: white;
-  font-size: 0.82rem;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.55rem 1rem;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.92);
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s, transform 0.15s;
   font-family: 'Inter', sans-serif;
   white-space: nowrap;
-  max-width: 100%;
+  justify-content: space-between;
   position: relative;
   overflow: hidden;
-  animation: radarPillGlow 2.5s ease-in-out infinite;
 }
-.radar-pill::before {
+.radar-btn::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,107,0,0.1) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,107,0,0.08) 50%, transparent 100%);
   background-size: 200% 100%;
   animation: radarBeam 3s ease-in-out infinite;
 }
-.radar-pill:hover {
-  background: rgba(255,107,0,0.28);
-  border-color: rgba(255,107,0,0.7);
+.radar-btn:hover {
+  background: rgba(255,107,0,0.22);
+  border-color: rgba(255,107,0,0.5);
   transform: translateY(-1px);
 }
-@keyframes radarPillGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,0,0); }
-  50%       { box-shadow: 0 0 0 4px rgba(255,107,0,0.18); }
-}
 
-/* Mini radar rings inside the pill */
-.radar-pill-rings {
+/* Mini radar rings */
+.radar-btn-rings {
   position: relative;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.rpr1, .rpr2 {
+.rbr1, .rbr2 {
   position: absolute;
   border-radius: 50%;
   border: 1.5px solid rgba(255,107,0,0.7);
   animation: radarPulse 2.2s ease-out infinite;
 }
-.rpr1 { width: 14px; height: 14px; animation-delay: 0s; }
-.rpr2 { width: 24px; height: 24px; animation-delay: 0.7s; }
+.rbr1 { width: 12px; height: 12px; animation-delay: 0s; }
+.rbr2 { width: 22px; height: 22px; animation-delay: 0.7s; }
 @keyframes radarPulse {
   0%   { transform: scale(0.5); opacity: 0.9; }
   100% { transform: scale(1.6); opacity: 0; }
@@ -321,8 +318,8 @@ h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; line-height: 1.2; }
   0%   { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
-.radar-pill-icon {
-  font-size: 1.05rem;
+.radar-btn-icon {
+  font-size: 1rem;
   position: relative;
   z-index: 2;
   animation: radarDotPop 2.2s ease-in-out infinite;
@@ -331,32 +328,17 @@ h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; line-height: 1.2; }
   0%, 100% { transform: scale(1); }
   50%       { transform: scale(1.15); }
 }
-
-.radar-pill-label {
+.radar-btn-label {
+  flex: 1;
   font-weight: 700;
   font-family: 'Outfit', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   position: relative;
 }
-.radar-pill-count {
-  background: rgba(255,107,0,0.3);
-  border-radius: 12px;
-  padding: 0.1rem 0.5rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #ffb380;
-  position: relative;
-}
-.radar-pill-arrow {
-  font-size: 0.85rem;
+.radar-btn-arrow {
+  font-size: 0.9rem;
   transition: transform 0.2s;
   position: relative;
+  color: rgba(255,255,255,0.6);
 }
-.radar-pill:hover .radar-pill-arrow { transform: translateX(3px); }
-
-@media (max-width: 800px) {
-  .radar-pill { font-size: 0.78rem; }
-  .radar-pill-count { display: none; }
-}
-
-
+.radar-btn:hover .radar-btn-arrow { transform: translateX(4px); color: white; }

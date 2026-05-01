@@ -10,7 +10,6 @@ const categorias = [
   { emoji: "🚗", nome: "Cuidado Automotivo", slug: "cuidado-automotivo" },
   { emoji: "💻", nome: "Tecnologia & Office", slug: "tecnologia-office" },
   { emoji: "💡", nome: "Casa Inteligente", slug: "casa-inteligente" },
-  { emoji: "📡", nome: "Radar de Achados", slug: "radar-de-achados" },
 ];
 
 interface HeaderProps {
