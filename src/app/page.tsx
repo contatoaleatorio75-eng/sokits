@@ -163,7 +163,7 @@ export default function HomePage() {
                     <span>Lojas parceiras</span>
                   </div>
                   <div className="hero-stat">
-                    <strong>5</strong>
+                    <strong>{categorias.length}</strong>
                     <span>Categorias</span>
                   </div>
                 </div>
@@ -172,6 +172,38 @@ export default function HomePage() {
                   <img src="/hero_bundles_visual_1777073627581.png" alt="Produtos Curados" className="floating-img" />
                 </div>
               </div>
+
+              {/* ── Radar de Achados animated strip ── */}
+              <button
+                className="radar-strip"
+                onClick={() => handleCatFilter("radar-de-achados")}
+                aria-label="Ver Radar de Achados"
+              >
+                <div className="radar-icon-wrap" aria-hidden="true">
+                  <span className="radar-ring r1" />
+                  <span className="radar-ring r2" />
+                  <span className="radar-ring r3" />
+                  <span className="radar-dot">📡</span>
+                </div>
+
+                <div className="radar-info">
+                  <strong>Radar de Achados</strong>
+                  <span>Produtos imperdíveis selecionados com curadoria especial</span>
+                </div>
+
+                <div className="radar-count-badge">
+                  {contagens["radar-de-achados"] > 0 ? (
+                    <><strong>{contagens["radar-de-achados"]}</strong> achados</>
+                  ) : (
+                    <>Em breve</>
+                  )}
+                </div>
+
+                <div className="radar-cta-arrow">
+                  <span>Descobrir agora</span>
+                  <span className="radar-arrow">→</span>
+                </div>
+              </button>
             </section>
           )}
 

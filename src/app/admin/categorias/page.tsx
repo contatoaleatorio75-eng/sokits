@@ -6,6 +6,15 @@ import { categoriasSeed } from "@/lib/seedData";
 
 const STATIC_CATS: Categoria[] = categoriasSeed.map((c) => ({ ...c, id: c.slug }));
 
+const PROTECTED_SLUGS = [
+  "oficina-em-casa",
+  "praticidade-domestica",
+  "cuidado-automotivo",
+  "tecnologia-office",
+  "casa-inteligente",
+  "radar-de-achados",
+];
+
 export default function CategoriasPage() {
   const [cats, setCats] = useState<Categoria[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,8 +32,11 @@ export default function CategoriasPage() {
     try {
       const { getCategorias } = await import("@/lib/firestoreHelpers");
       const data = await getCategorias();
+      // Only use static data if Firebase returned nothing AND we have no real connection
       setCats(data.length ? data : STATIC_CATS);
-    } catch {
+    } catch (err) {
+      console.error("Erro ao carregar categorias:", err);
+      // Only fall back to static if it looks like Firebase isn't configured
       setCats(STATIC_CATS);
     } finally {
       setLoading(false);
@@ -147,7 +159,7 @@ export default function CategoriasPage() {
                         <td>
                           <div className="gap-actions">
                             <button className="btn-secondary" style={{ padding: "0.3rem 0.6rem" }} onClick={() => setEditing(cat)}><Pencil size={13} /></button>
-                            {cat.id && !["oficina-em-casa", "praticidade-domestica", "cuidado-automotivo", "tecnologia-office", "casa-inteligente"].includes(cat.id) && (
+                            {cat.slug && !PROTECTED_SLUGS.includes(cat.slug) && (
                               <button className="btn-danger" onClick={() => cat.id && handleDelete(cat.id, cat.nome)}><Trash2 size={13} /></button>
                             )}
                           </div>

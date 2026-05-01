@@ -21,9 +21,17 @@ import { kitsSeed, categoriasSeed, type Kit, type Categoria } from "./seedData";
 // ─── Categorias ────────────────────────────────────────────────────────────────
 
 export async function getCategorias(): Promise<Categoria[]> {
-  const q = query(collection(db, "categorias"), orderBy("ordem"));
-  const snap = await getDocs(q);
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Categoria));
+  try {
+    // Try with orderBy (requires Firestore index)
+    const q = query(collection(db, "categorias"), orderBy("ordem"));
+    const snap = await getDocs(q);
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Categoria));
+  } catch {
+    // Fallback: get all docs and sort client-side to avoid index errors
+    const snap = await getDocs(collection(db, "categorias"));
+    const cats = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Categoria));
+    return cats.sort((a, b) => (a.ordem ?? 99) - (b.ordem ?? 99));
+  }
 }
 
 export async function addCategoria(cat: Omit<Categoria, "id">): Promise<string> {
