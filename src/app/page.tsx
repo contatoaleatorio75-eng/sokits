@@ -151,6 +151,23 @@ export default function HomePage() {
                       <Search size={18} /> Buscar
                     </button>
                   </form>
+
+                  {/* Radar de Achados — compact pill shortcut */}
+                  <button
+                    className="radar-pill"
+                    onClick={() => handleCatFilter("radar-de-achados")}
+                    aria-label="Ver Radar de Achados"
+                  >
+                    <span className="radar-pill-rings" aria-hidden="true">
+                      <span className="rpr1" /><span className="rpr2" />
+                      <span className="radar-pill-icon">📡</span>
+                    </span>
+                    <span className="radar-pill-label">Radar de Achados</span>
+                    {contagens["radar-de-achados"] > 0 && (
+                      <span className="radar-pill-count">{contagens["radar-de-achados"]} achados</span>
+                    )}
+                    <span className="radar-pill-arrow">→</span>
+                  </button>
                 </div>
 
                 <div className="hero-stats-box">
@@ -173,37 +190,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* ── Radar de Achados animated strip ── */}
-              <button
-                className="radar-strip"
-                onClick={() => handleCatFilter("radar-de-achados")}
-                aria-label="Ver Radar de Achados"
-              >
-                <div className="radar-icon-wrap" aria-hidden="true">
-                  <span className="radar-ring r1" />
-                  <span className="radar-ring r2" />
-                  <span className="radar-ring r3" />
-                  <span className="radar-dot">📡</span>
-                </div>
-
-                <div className="radar-info">
-                  <strong>Radar de Achados</strong>
-                  <span>Produtos imperdíveis selecionados com curadoria especial</span>
-                </div>
-
-                <div className="radar-count-badge">
-                  {contagens["radar-de-achados"] > 0 ? (
-                    <><strong>{contagens["radar-de-achados"]}</strong> achados</>
-                  ) : (
-                    <>Em breve</>
-                  )}
-                </div>
-
-                <div className="radar-cta-arrow">
-                  <span>Descobrir agora</span>
-                  <span className="radar-arrow">→</span>
-                </div>
-              </button>
             </section>
           )}
 
