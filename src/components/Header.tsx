@@ -33,7 +33,14 @@ export default function Header({ onCatFilter, activeSlug }: HeaderProps) {
           {mobileNavOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
 
-        <Link href="/" className="header-logo">
+        <Link 
+          href="/" 
+          className="header-logo"
+          onClick={(e) => {
+            onCatFilter?.(null);
+            setMobileNavOpen(false);
+          }}
+        >
           <Image
             src="/logo.png"
             alt="Só Kits"
@@ -46,6 +53,13 @@ export default function Header({ onCatFilter, activeSlug }: HeaderProps) {
 
         {/* Inline Category Nav */}
         <nav className={`header-nav-inline ${mobileNavOpen ? "open" : ""}`}>
+          <button
+            className={`nav-link ${!activeSlug ? "active" : ""}`}
+            onClick={() => { onCatFilter?.(null); setMobileNavOpen(false); }}
+            style={{ background: "none", border: "none", cursor: "pointer", font: "inherit" }}
+          >
+            🏠 Início
+          </button>
           {categorias.map((c) => (
             <button
               key={c.slug}
