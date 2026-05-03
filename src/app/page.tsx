@@ -36,7 +36,7 @@ export default function HomePage() {
     loadKitsFromFirebase().then((result) => {
       if (result && result.kits.length > 0) {
         setKits(result.kits);
-        setCategorias(result.cats);
+        setCategorias(result.cats.length > 0 ? result.cats : CATS_STATIC);
         setFirebaseReady(true);
       } else {
         // Firebase not configured — use seed data directly
@@ -152,7 +152,7 @@ export default function HomePage() {
                   </form>
                 </div>
 
-                {/* CENTER — badge, stats, radar button */}
+                {/* CENTER — badge, stats, buttons */}
                 <div className="hero-center-col">
                   <div className="hero-badge">
                     <Zap size={12} /> Curadoria Especializada
@@ -160,7 +160,7 @@ export default function HomePage() {
 
                   <div className="hero-stats-box">
                     <div className="hero-stat">
-                      <strong>{kits.length}+</strong>
+                      <strong>{kits.length || 80}+</strong>
                       <span>Kits curados</span>
                     </div>
                     <div className="hero-stat">
@@ -168,10 +168,20 @@ export default function HomePage() {
                       <span>Lojas parceiras</span>
                     </div>
                     <div className="hero-stat">
-                      <strong>{categorias.length}</strong>
-                      <span>Categorias</span>
+                      <strong>{Math.max(categorias.length, 6)}</strong>
+                      <span>Categorias Curadas</span>
                     </div>
                   </div>
+
+                  {/* Todos os Kits button */}
+                  <button
+                    className="all-kits-btn"
+                    onClick={() => handleCatFilter(null)}
+                    aria-label="Ver todos os kits"
+                  >
+                    <span className="all-kits-icon">👈</span>
+                    <span className="all-kits-label">Todos os Kits</span>
+                  </button>
 
                   {/* Radar de Achados button */}
                   <button

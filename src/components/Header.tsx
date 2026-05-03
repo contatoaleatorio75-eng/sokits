@@ -5,11 +5,12 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const categorias = [
+  { emoji: "💻", nome: "Tecnologia & Office", slug: "tecnologia-office" },
+  { emoji: "💡", nome: "Casa Inteligente", slug: "casa-inteligente" },
   { emoji: "🛠️", nome: "Oficina em Casa", slug: "oficina-em-casa" },
   { emoji: "🏠", nome: "Praticidade Doméstica", slug: "praticidade-domestica" },
   { emoji: "🚗", nome: "Cuidado Automotivo", slug: "cuidado-automotivo" },
-  { emoji: "💻", nome: "Tecnologia & Office", slug: "tecnologia-office" },
-  { emoji: "💡", nome: "Casa Inteligente", slug: "casa-inteligente" },
+  { emoji: "📱", nome: "Celulares", slug: "celulares" },
 ];
 
 interface HeaderProps {

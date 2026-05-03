@@ -63,19 +63,6 @@ export default function AdminDashboard() {
           <Link href="/admin/kits" className="btn-secondary"><Package size={15} /> Ver Todos os Kits</Link>
           <Link href="/admin/categorias" className="btn-secondary"><Tag size={15} /> Gerenciar Categorias</Link>
           <Link href="/" className="btn-secondary" target="_blank"><ExternalLink size={14} /> Ver Loja</Link>
-          <button
-            className="btn-danger"
-            style={{ fontSize: "0.75rem", background: "none", color: "#dc2626", border: "1px solid #fca5a5" }}
-            onClick={async () => {
-              if (confirm("Isso apagará todos os kits atuais e recarregará as imagens de alta qualidade do Seed. Continuar?")) {
-                const { forceResetSeed } = await import("@/lib/firestoreHelpers");
-                await forceResetSeed();
-                window.location.reload();
-              }
-            }}
-          >
-            Redefinir Banco (Imagens HQ)
-          </button>
         </div>
       </div>
 

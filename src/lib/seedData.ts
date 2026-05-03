@@ -28,6 +28,7 @@ export const categoriasSeed: Categoria[] = [
   { id: "4", nome: "Tecnologia & Office", emoji: "💻", slug: "tecnologia-office", ordem: 4 },
   { id: "5", nome: "Casa Inteligente", emoji: "💡", slug: "casa-inteligente", ordem: 5 },
   { id: "6", nome: "Radar de Achados", emoji: "📡", slug: "radar-de-achados", ordem: 6 },
+  { id: "7", nome: "Celulares", emoji: "📱", slug: "celulares", ordem: 7 },
 ];
 
 export const kitsSeed: Kit[] = [

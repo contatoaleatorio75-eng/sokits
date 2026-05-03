@@ -118,7 +118,8 @@ export async function forceResetSeed() {
   const catsSnap = await getDocs(catsCol);
   for (const doc of catsSnap.docs) await deleteDoc(doc.ref);
 
-  // Rodar seed
-  await setDoc(doc(metaCol, "status"), { seeded: false });
+  // Deletar marcador de seed para permitir re-população
+  await deleteDoc(doc(db, "meta", "seed_v1"));
+  await setDoc(doc(db, "meta", "status"), { seeded: false });
   await runSeedIfNeeded();
 }

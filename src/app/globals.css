@@ -61,7 +61,7 @@ h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; line-height: 1.2; }
 /* HERO */
 .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, #2a5fa8 100%); border-radius: 16px; padding: 1rem 2rem; color: white; position: relative; overflow: hidden; margin-bottom: 1.5rem; }
 .hero-content { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 1.5rem; position: relative; z-index: 2; max-width: 1500px; margin: 0 auto; }
-.hero-text { flex: 1; text-align: left; max-width: 420px; }
+.hero-text { flex: 1; text-align: left; max-width: 480px; display: flex; flex-direction: column; gap: 1rem; }
 .hero-center-col { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0.85rem; }
 .hero-stats-box { flex: 0 0 auto; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem 1.25rem; display: flex; flex-direction: row; gap: 1.25rem; }
 .hero-visual { flex: 0 0 auto; display: flex; justify-content: center; align-items: center; }
@@ -342,3 +342,35 @@ h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; line-height: 1.2; }
   color: rgba(255,255,255,0.6);
 }
 .radar-btn:hover .radar-btn-arrow { transform: translateX(4px); color: white; }
+
+/* ALL KITS BUTTON */
+.all-kits-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.55rem 1rem;
+  background: rgba(0,0,0,0.5);
+  border: 1.5px solid rgba(255,107,0,0.4);
+  border-radius: 8px;
+  color: var(--orange);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Outfit', sans-serif;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+.all-kits-btn:hover {
+  background: var(--orange);
+  color: white;
+  border-color: var(--orange);
+  transform: translateY(-1px);
+}
+.all-kits-icon {
+  font-size: 1.1rem;
+}
+
