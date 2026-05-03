@@ -46,13 +46,6 @@ export default function Header({ onCatFilter, activeSlug }: HeaderProps) {
 
         {/* Inline Category Nav */}
         <nav className={`header-nav-inline ${mobileNavOpen ? "open" : ""}`}>
-          <button
-            className={`nav-link ${!activeSlug ? "active" : ""}`}
-            onClick={() => { onCatFilter?.(null); setMobileNavOpen(false); }}
-            style={{ background: "none", border: "none", cursor: "pointer", font: "inherit" }}
-          >
-            🏷️ Todos os Kits
-          </button>
           {categorias.map((c) => (
             <button
               key={c.slug}
