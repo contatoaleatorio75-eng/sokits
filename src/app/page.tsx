@@ -11,9 +11,9 @@ import { kitsSeed, categoriasSeed, type Kit, type Categoria } from "@/lib/seedDa
 // Firebase & helpers (loaded lazily to avoid SSG issues)
 async function loadKitsFromFirebase(): Promise<{ kits: Kit[]; cats: Categoria[] } | null> {
   try {
-    const { db } = await import("@/lib/firebase");
     const { getCategorias, getKits, runSeedIfNeeded } = await import("@/lib/firestoreHelpers");
-    await runSeedIfNeeded();
+    // Seed only runs once on the very first use; ignore errors (e.g. permission denied for non-admins)
+    try { await runSeedIfNeeded(); } catch { /* seed errors must not block loading */ }
     const [cats, kits] = await Promise.all([getCategorias(), getKits()]);
     return { kits, cats };
   } catch {
