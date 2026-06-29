@@ -215,14 +215,6 @@ export default function KitForm({ initialData, kitId }: KitFormProps) {
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="kit-preco">* R$ Preço</label>
-              <input id="kit-preco" className="form-input" value={form.preco} onChange={(e) => setField("preco", e.target.value)} placeholder="R$ 99,90" />
-              <p className="form-hint" style={{ fontSize: "0.7rem", marginTop: "0.3rem" }}>
-                * O preço pode sofrer alterações dependendo da data e hora da pesquisa.
-              </p>
-            </div>
-
-            <div className="form-group">
               <label className="form-label" htmlFor="kit-nota">Nota (estrelas)</label>
               <input id="kit-nota" type="number" min="1" max="5" step="0.1" className="form-input" value={form.nota_estrelas} onChange={(e) => setField("nota_estrelas", parseFloat(e.target.value))} />
             </div>

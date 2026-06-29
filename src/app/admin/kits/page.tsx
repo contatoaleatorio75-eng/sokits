@@ -227,9 +227,6 @@ export default function AdminKitsPage() {
                 <th onClick={() => handleSort("loja")} className={`sortable-header ${sortField === "loja" ? "active" : ""}`}>
                   Loja <SortIcon field="loja" />
                 </th>
-                <th onClick={() => handleSort("preco")} className={`sortable-header ${sortField === "preco" ? "active" : ""}`}>
-                  Preço <SortIcon field="preco" />
-                </th>
                 <th onClick={() => handleSort("nota_estrelas")} className={`sortable-header ${sortField === "nota_estrelas" ? "active" : ""}`}>
                   Nota <SortIcon field="nota_estrelas" />
                 </th>
@@ -260,35 +257,6 @@ export default function AdminKitsPage() {
                     <span style={{ ...badgeStyle(k.loja), padding: "2px 8px", borderRadius: "6px", fontSize: "0.7rem", fontWeight: 700 }}>
                       {k.loja}
                     </span>
-                  </td>
-                  <td>
-                    <div style={{ display: "flex", alignItems: "center", gap: "2px", color: "var(--orange)", fontWeight: 700 }}>
-                      <span style={{ fontSize: "0.8rem", opacity: 0.8 }}>*</span>
-                      <input 
-                        type="text"
-                        defaultValue={k.preco}
-                        onBlur={(e) => k.id && handleUpdatePrice(k.id, e.target.value, k.preco)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") (e.target as HTMLInputElement).blur();
-                        }}
-                        style={{ 
-                          background: "transparent", 
-                          border: "1px solid transparent", 
-                          color: "inherit", 
-                          fontWeight: "inherit", 
-                          padding: "2px 4px", 
-                          width: "95px",
-                          borderRadius: "4px",
-                          outline: "none",
-                          fontSize: "0.85rem"
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.background = "#fff";
-                          e.target.style.border = "1px solid var(--orange)";
-                        }}
-                        title="Clique para editar o preço"
-                      />
-                    </div>
                   </td>
                   <td>⭐ {k.nota_estrelas}</td>
                   <td style={{ textAlign: "center" }}>
