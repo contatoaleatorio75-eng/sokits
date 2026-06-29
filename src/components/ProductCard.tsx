@@ -78,24 +78,15 @@ export default function ProductCard({ kit }: ProductCardProps) {
           ))}
         </ul>
 
-        {/* Price */}
-        <div>
-          <div className="card-price-label">a partir de</div>
-          <div className="card-price">* {kit.preco}</div>
-          <p style={{ fontSize: "0.62rem", color: "var(--text-muted)", marginTop: "2px", lineHeight: 1.2 }}>
-            * O preço pode sofrer alterações dependendo da data e hora da pesquisa.
-          </p>
-        </div>
-
-        {/* CTA */}
+        {/* CTA — Preço removido intencionalmente; usuário descobre na loja */}
         <a
           href={kit.link_afiliado}
           target="_blank"
           rel="noopener noreferrer nofollow"
-          className="btn-ver-preco"
+          className="btn-ver-preco btn-preco-dia"
           id={`btn-kit-${kit.id || kit.titulo.replace(/\s+/g, "-").toLowerCase()}`}
         >
-          VER PREÇO NA LOJA <ExternalLink size={14} style={{ display: "inline", marginLeft: "4px" }} />
+          🏷️ Ver Preço Promocional do Dia <ExternalLink size={14} style={{ display: "inline", marginLeft: "4px" }} />
         </a>
       </div>
     </article>

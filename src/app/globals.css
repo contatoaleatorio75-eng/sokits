@@ -131,8 +131,10 @@ h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; line-height: 1.2; }
 .card-specs li::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; }
 .card-price { font-size: 1.4rem; font-weight: 800; color: var(--orange); font-family: 'Outfit', sans-serif; margin-top: auto; }
 .card-price-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 400; }
-.btn-ver-preco { display: block; width: 100%; background: var(--orange); color: white; text-align: center; padding: 0.7rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.88rem; border: none; cursor: pointer; transition: background 0.2s, transform 0.1s; margin-top: 0.5rem; font-family: 'Inter', sans-serif; }
+.btn-ver-preco { display: block; width: 100%; background: var(--orange); color: white; text-align: center; padding: 0.7rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.88rem; border: none; cursor: pointer; transition: background 0.2s, transform 0.1s; margin-top: auto; font-family: 'Inter', sans-serif; }
 .btn-ver-preco:hover { background: var(--orange-dark); transform: translateY(-1px); }
+.btn-preco-dia { background: linear-gradient(135deg, var(--orange) 0%, #e05e00 100%); box-shadow: 0 4px 14px rgba(255,107,0,0.35); font-size: 0.83rem; padding: 0.78rem 1rem; letter-spacing: 0.01em; }
+.btn-preco-dia:hover { background: linear-gradient(135deg, #e05e00 0%, #c95300 100%); box-shadow: 0 6px 20px rgba(255,107,0,0.45); transform: translateY(-2px); }
 
 /* FILTER BAR */
 .filter-bar { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; padding: 0.75rem 1rem; background: white; border-radius: 10px; border: 1px solid var(--border); }

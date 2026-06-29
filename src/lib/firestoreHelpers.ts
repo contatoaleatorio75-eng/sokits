@@ -50,14 +50,24 @@ export async function deleteCategoria(id: string): Promise<void> {
 // ─── Kits ──────────────────────────────────────────────────────────────────────
 
 export async function getKits(categoriaId?: string): Promise<Kit[]> {
-  let q;
-  if (categoriaId) {
-    q = query(collection(db, "kits"), where("categoria_id", "==", categoriaId), orderBy("titulo"));
-  } else {
-    q = query(collection(db, "kits"), orderBy("titulo"));
+  try {
+    let q;
+    if (categoriaId) {
+      q = query(collection(db, "kits"), where("categoria_id", "==", categoriaId), orderBy("titulo"));
+    } else {
+      q = query(collection(db, "kits"), orderBy("titulo"));
+    }
+    const snap = await getDocs(q);
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Kit));
+  } catch (err) {
+    console.error("getKits error, using fallback:", err);
+    const snap = await getDocs(collection(db, "kits"));
+    let kits = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Kit));
+    if (categoriaId) {
+      kits = kits.filter((k) => k.categoria_id === categoriaId);
+    }
+    return kits.sort((a, b) => (a.titulo || "").localeCompare(b.titulo || ""));
   }
-  const snap = await getDocs(q);
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Kit));
 }
 
 export async function addKit(kit: Omit<Kit, "id">): Promise<string> {
@@ -65,6 +75,8 @@ export async function addKit(kit: Omit<Kit, "id">): Promise<string> {
     ...kit,
     created_at: Timestamp.now(),
   });
+  // Trigger backup async
+  createBackup().catch(console.error);
   return ref.id;
 }
 
@@ -73,7 +85,25 @@ export async function updateKit(id: string, kit: Partial<Kit>): Promise<void> {
 }
 
 export async function deleteKit(id: string): Promise<void> {
+  // Backup before deletion for safety
+  await createBackup().catch(console.error);
   await deleteDoc(doc(db, "kits", id));
+}
+
+// ─── Backups ──────────────────────────────────────────────────────────────────
+
+export async function createBackup() {
+  try {
+    const kits = await getKits();
+    await addDoc(collection(db, "backups"), {
+      data: kits,
+      at: Timestamp.now(),
+      count: kits.length,
+      reason: "Automatic point"
+    });
+  } catch (err) {
+    console.error("Backup failure:", err);
+  }
 }
 
 // ─── Seed ─────────────────────────────────────────────────────────────────────
